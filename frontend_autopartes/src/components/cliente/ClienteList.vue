@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Cliente } from '@/models/cliente'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -69,10 +70,10 @@ onMounted(() => {
             <td>{{ cliente.telefono }}</td>
             <td>
               <button class="btn btn-link" @click="toEdit(cliente.id)">
-                <font-awesome-icon icon="fa-solid fa-edit" />
+                <font-awesome-icon icon="fa-solid fa-edit" />Editar
               </button>
               <button class="btn btn-link" @click="toDelete(cliente.id)">
-                <font-awesome-icon icon="fa-solid fa-trash" />
+                <font-awesome-icon icon="fa-solid fa-trash" />Eliminar
               </button>
             </td>
           </tr>

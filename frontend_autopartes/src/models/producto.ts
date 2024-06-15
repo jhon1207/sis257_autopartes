@@ -6,5 +6,5 @@ export interface Producto {
   descripcion: string
   precio: number
   stock: number
-  catergoria: Categoria
+  categoria: Categoria
 }

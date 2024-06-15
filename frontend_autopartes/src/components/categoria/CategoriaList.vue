@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Categoria } from '@/models/categoria'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -54,7 +55,6 @@ onMounted(() => {
           <tr>
             <th scope="col">N°</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -62,12 +62,13 @@ onMounted(() => {
           <tr v-for="(categoria, index) in categorias.values()" :key="categoria.id">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ categoria.nombre }}</td>
-            <td>{{ categoria.descripcion }}</td>
             <td>
               <button class="btn btn-link" @click="toEdit(categoria.id)">
+                Editar
                 <font-awesome-icon icon="fa-solid fa-edit" />
               </button>
               <button class="btn btn-link" @click="toDelete(categoria.id)">
+                Eliminar
                 <font-awesome-icon icon="fa-solid fa-trash" />
               </button>
             </td>

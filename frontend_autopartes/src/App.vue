@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { useAuthStore } from '@/stores/index'
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -8,16 +10,20 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Proyecto Autopartes Lab Sis257" />
+      <HelloWorld :msg="'SIS257' + (authStore.user ? ' - Hola ' + authStore.user : '')" />
 
       <nav>
         <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/about">Acerca De</RouterLink>
-        <RouterLink to="/productos">Productos</RouterLink>
-        <RouterLink to="/categorias">Categorias</RouterLink>
-        <RouterLink to="/clientes">Clientes</RouterLink>
-        <RouterLink to="/ventas">Ventas</RouterLink>
-        <RouterLink to="/detalleVentas">DetalleVentas</RouterLink>
+        <RouterLink v-if="!authStore.token" to="/login">Iniciar Sesión</RouterLink>
+        <span v-else>
+          <RouterLink to="/productos">Productos</RouterLink>
+          <RouterLink to="/categorias">Categorias</RouterLink>
+          <RouterLink to="/clientes">Clientes</RouterLink>
+          <RouterLink to="/ventas">Ventas</RouterLink>
+          <RouterLink to="/detalleVentas">DetalleVentas</RouterLink>
+          <RouterLink to="/about">Acerca De</RouterLink>
+          <a @click="authStore.logout()" class="text-danger">Salir</a>
+        </span>
       </nav>
     </div>
   </header>

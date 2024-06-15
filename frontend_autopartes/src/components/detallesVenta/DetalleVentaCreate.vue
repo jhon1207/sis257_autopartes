@@ -2,33 +2,34 @@
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
+import type { Venta } from '@/models/venta'
+import type { Producto } from '@/models/producto'
 
 const props = defineProps<{
   ENDPOINT_API: string
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
-const detalleVenta = ref<DetalleVenta>({} as DetalleVenta)
-
 const idVenta = ref<number>(0)
 const ventas = ref<Venta[]>([])
-
 const idProducto = ref<number>(0)
 const productos = ref<Producto[]>([])
+const cantidad = ref('')
+const precioTotal = ref('')
 
 async function crearDetalleVenta() {
   await http
     .post(ENDPOINT, {
       idVenta: idVenta.value,
       idProducto: idProducto.value,
-      cantidad: datalleVenta.value.cantidad,
-      precioTotal: datalleVenta.value.precioTotal
+      cantidad: cantidad.value,
+      precioTotal: precioTotal.value
     })
     .then(() => router.push('/detalleVenta'))
 }
 
 async function obtenerVentas() {
-  ventas.value = await http.get('ventas' + idVentas.value).then((res) => res.data)
+  ventas.value = await http.get('ventas' + idVenta.value).then((res) => res.data)
 }
 
 onMounted(async () => {
@@ -70,7 +71,7 @@ function goBack() {
           <select class="form-select" v-model="idVenta" required @change="obtenerVentas">
             <option value="" :disabled="true">Seleccione un elemento</option>
             <option v-for="venta in ventas" :key="venta.id" :value="venta.id">
-              {{ venta.totalVenta }}
+              {{ venta.totalVentas }}
             </option>
           </select>
           <label for="venta">Ventas</label>
@@ -86,9 +87,9 @@ function goBack() {
         </div>
         <div class="form-floating mb-2">
           <input
-            type="number"
+            type="text"
             class="form-control"
-            v-model="detalleVenta.cantidad"
+            v-model="cantidad"
             placeholder="Cantidad"
             required
           />
@@ -98,7 +99,7 @@ function goBack() {
           <input
             type="number"
             class="form-control"
-            v-model="detalleVenta.precioTotal"
+            v-model="precioTotal"
             placeholder="PrecioTotal"
             required
           />

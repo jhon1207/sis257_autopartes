@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Producto } from '@/models/producto'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -71,10 +72,10 @@ onMounted(() => {
             <td>{{ producto.stock }}</td>
             <td>
               <button class="btn btn-link" @click="toEdit(producto.id)">
-                <font-awesome-icon icon="fa-solid fa-edit" />
+                <font-awesome-icon icon="fa-solid fa-edit" /> Editar
               </button>
               <button class="btn btn-link" @click="toDelete(producto.id)">
-                <font-awesome-icon icon="fa-solid fa-trash" />
+                <font-awesome-icon icon="fa-solid fa-trash" /> Eliminar
               </button>
             </td>
           </tr>

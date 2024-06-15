@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { DetalleVenta } from '@/models/detalleVenta'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -63,16 +64,16 @@ onMounted(() => {
         <tbody>
           <tr v-for="(detalleVenta, index) in detalleVentas.values()" :key="detalleVenta.id">
             <th scope="row">{{ index + 1 }}</th>
-            <td>{{ detalleVenta.venta.totalVenta }}</td>
+            <td>{{ detalleVenta.venta.totalVentas }}</td>
             <td>{{ detalleVenta.producto.nombre }}</td>
             <td>{{ detalleVenta.cantidad }}</td>
             <td>{{ detalleVenta.precioTotal }}</td>
             <td>
-              <button class="btn btn-link" @click="toEdit(venta.id)">
-                <font-awesome-icon icon="fa-solid fa-edit" />
+              <button class="btn btn-link" @click="toEdit(detalleVenta.id)">
+                <font-awesome-icon icon="fa-solid fa-edit" />Editar
               </button>
-              <button class="btn btn-link" @click="toDelete(venta.id)">
-                <font-awesome-icon icon="fa-solid fa-trash" />
+              <button class="btn btn-link" @click="toDelete(detalleVenta.id)">
+                <font-awesome-icon icon="fa-solid fa-trash" />Eliminar
               </button>
             </td>
           </tr>

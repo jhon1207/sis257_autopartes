@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Categoria } from '@/models/categoria'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -8,20 +9,21 @@ const props = defineProps<{
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
-const producto = ref<Producto>({} as Producto)
-
 const idCategoria = ref<number>(0)
-
 const categorias = ref<Categoria[]>([])
+const nombre = ref('')
+const descripcion = ref('')
+const precio = ref('')
+const stock = ref('')
 
 async function crearProducto() {
   await http
     .post(ENDPOINT, {
       idCategoria: idCategoria.value,
-      nombre: producto.value.nombre,
-      descripcion: producto.value.descripcion,
-      precio: producto.value.precio,
-      stock: producto.value.stock
+      nombre: nombre.value,
+      descripcion: descripcion.value,
+      precio: precio.value,
+      stock: stock.value
     })
     .then(() => router.push('/producto'))
 }
@@ -67,20 +69,14 @@ function goBack() {
           <label for="categoria">Categorias</label>
         </div>
         <div class="form-floating mb-2">
-          <input
-            type="text"
-            class="form-control"
-            v-model="producto.nombre"
-            placeholder="Nombre"
-            required
-          />
+          <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" required />
           <label for="nombre">Nombre</label>
         </div>
         <div class="form-floating mb-2">
           <input
             type="text"
             class="form-control"
-            v-model="producto.descripcion"
+            v-model="descripcion"
             placeholder="Descripcion"
             required
           />
@@ -90,20 +86,14 @@ function goBack() {
           <input
             type="number"
             class="form-control"
-            v-model="producto.precio"
+            v-model="precio"
             placeholder="Precio"
             required
           />
           <label for="precio">Precio</label>
         </div>
         <div class="form-floating mb-2">
-          <input
-            type="number"
-            class="form-control"
-            v-model="producto.stock"
-            placeholder="Stock"
-            required
-          />
+          <input type="number" class="form-control" v-model="stock" placeholder="Stock" required />
           <label for="stock">Stock</label>
         </div>
         <div class="text-center mt-3">
